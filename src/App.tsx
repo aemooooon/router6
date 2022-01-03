@@ -1,24 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import logo from './logo.svg';
+import { NavLink, Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className='header'>
+        <img src={logo} alt="" />
+        <div>
+          <NavLink
+            style={({ isActive }) => ({
+              color: isActive ? 'red' : 'white'
+            })}
+            to={"/"}>
+            Home
+          </NavLink> | {""}
+          <NavLink
+            style={({ isActive }) => ({
+              color: isActive ? 'red' : 'white'
+            })} to={"users"}>
+            User
+          </NavLink>
+        </div>
       </header>
+      <main className='main'>
+        <Outlet />
+      </main>
+      <footer className='footer'>
+        &copy; 2020 aemooooon. All rights reserved.
+      </footer>
     </div>
   );
 }
