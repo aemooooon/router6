@@ -4,6 +4,11 @@ import logo from './logo.svg';
 import { NavLink, Outlet } from 'react-router-dom';
 
 function App() {
+
+  let copyRight = '';
+
+  import('./utils/index').then((utils) => copyRight = utils.getCopyright());
+
   return (
     <div className="App">
       <header className='header'>
@@ -28,7 +33,7 @@ function App() {
         <Outlet />
       </main>
       <footer className='footer'>
-        &copy; 2020 aemooooon. All rights reserved.
+        {copyRight}
       </footer>
     </div>
   );

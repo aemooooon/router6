@@ -1,32 +1,34 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import Home from './home';
-import Users from './users';
-import NewUser from './users/new';
-import List from './users/list';
-import User from './users/user';
+const App = React.lazy(() => import('./App'));
+const Home = React.lazy(() => import('./home'));
+const Users = React.lazy(() => import('./users'));
+const NewUser = React.lazy(()=> import('./users/new'));
+const List = React.lazy(()=> import('./users/list'));
+const User = React.lazy(()=>import('./users/user'));
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="users" element={<Users />}>
-            <Route index element={<List />} />
-            <Route path="new" element={<NewUser />} />
-            <Route path=":id" element={<User />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="users" element={<Users />}>
+              <Route index element={<List />} />
+              <Route path="new" element={<NewUser />} />
+              <Route path=":id" element={<User />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="*" element={<div>404</div>}></Route>
-      </Routes>
-    </BrowserRouter>
-
+          <Route path="*" element={<div>404</div>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );
